@@ -1,0 +1,5 @@
+Description: Recipe stub for any Processors in this directory.
+Identifier: really.cool.Processors
+Input: {}
+MinimumVersion: 2.3.0
+Process: []

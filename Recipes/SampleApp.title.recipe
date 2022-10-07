@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Generic Policy Template</string>
+	<key>Identifier</key>
+	<string>com.software.title.thing</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>SampleName</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.3</string>
+	<key>ParentRecipe</key>
+	<string>com.sample.pkg.thing</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>really.cool.Processors/UpdateTitleEditor</string>
+			<key>Arguments</key>
+			<dict>
+				<key>title_id</key>
+				<string>[numeric id from title editor]</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

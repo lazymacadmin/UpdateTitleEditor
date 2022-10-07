@@ -1,0 +1,10 @@
+Comment: Generic Policy Template
+Identifier: com.software.title.thing
+Input:
+    NAME: SampleName
+MinimumVersion: '2.3'
+ParentRecipe: com.sample.pkg.thing
+Process:
+-   Processor: really.cool.Processors/UpdateTitleEditor
+    Arguments:
+        title_id: '[numeric id from title editor]'
