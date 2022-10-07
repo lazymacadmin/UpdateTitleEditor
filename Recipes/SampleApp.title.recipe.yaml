@@ -1,5 +1,5 @@
 Comment: Generic Policy Template
-Identifier: com.software.title.thing
+Identifier: com.sample.title.thing
 Input:
     NAME: SampleName
 MinimumVersion: '2.3'
