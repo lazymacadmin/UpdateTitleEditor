@@ -299,6 +299,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         enc_creds = self.get_enc_creds(username, password)
         authtoken = self.get_api_token(my_url, enc_creds)
         version = self.env["version"]
+        title = self.env.get("NAME")
 
         """Sends the new PatchVersion to a PatchServer"""
 
@@ -317,17 +318,17 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
             # Get errors if any
             if verhttpcode not in (200, 201):
                 raise ProcessorError("Error %s setting version for %s"
-                                     % (verhttpcode, id))
+                                     % (verhttpcode, title))
         elif httpcode == 400:
             errData = r["errors"][0]["code"]
             if errData == 'DUPLICATE_RECORD':
-                self.output("%s was already at this version" % id)
+                self.output("%s was already at this version" % title)
             else:
                 raise ProcessorError("Error %s sending Patch-Data for %s: %s"
-                                     % (httpcode, id, errData))
+                                     % (httpcode, title, errData))
         else:
             raise ProcessorError("Error %s sending Patch-Data for %s: %s"
-                                 % (httpcode, id, r))
+                                 % (httpcode, title, r))
 
     def cleanup(self):
         """Directory cleanup"""
