@@ -2,7 +2,6 @@
 
 import os
 import plistlib
-import requests
 import shutil
 import xml
 import subprocess
@@ -141,7 +140,8 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         info_plist_path = os.path.join(app_path, "Contents", "Info.plist")
         # Try to extract data to an hashtable
         try:
-            info_plist = plistlib.readPlist(info_plist_path)
+            with open(info_plist_path, 'rb') as fp:
+                info_plist = plistlib.load(fp)
         except EnvironmentError as err:
             print('ERROR: {}'.format(err))
             raise SystemExit(1)
