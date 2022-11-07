@@ -2,7 +2,6 @@
 
 import os
 import plistlib
-import requests
 import shutil
 import xml
 import subprocess
