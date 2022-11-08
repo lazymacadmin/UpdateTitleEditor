@@ -381,6 +381,9 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
             raise SystemExit(1)
 
     def debug_log(self,message,sub_string):
+        ''' To use: add 
+        self.debug_log("Text to desplay after DEBUG - ",variabledata)
+        '''
         if self.env.get("debug"):
             print(("DEBUG - %s is %s") % (message, sub_string))
 
