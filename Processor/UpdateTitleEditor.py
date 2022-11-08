@@ -2,7 +2,6 @@
 
 import os
 import plistlib
-import requests
 import shutil
 import xml
 import subprocess
@@ -68,6 +67,10 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         "app": {
             "required": False,
             "description": "plist file"
+        },
+        "debug": {
+            "required": False,
+            "description": "Flag to enable debugging"
         },
         "title_id": {
             "required": True,
@@ -141,7 +144,8 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         info_plist_path = os.path.join(app_path, "Contents", "Info.plist")
         # Try to extract data to an hashtable
         try:
-            info_plist = plistlib.readPlist(info_plist_path)
+            with open(info_plist_path, 'rb') as fp:
+                info_plist = plistlib.load(fp)
         except EnvironmentError as err:
             print('ERROR: {}'.format(err))
             raise SystemExit(1)
@@ -179,7 +183,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         timestamp = datetime.utcfromtimestamp(
             os.path.getmtime(app_path)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-        # generate patchData-Hashtable
+        # generate patchData-
         patch = json.dumps(
             {"patchId": 0, "softwareTitleId": patch_id,
              "absoluteOrderId": 0, "version": useVer,
@@ -198,6 +202,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
                                "operator": "greater than or equal",
                                "value": min_os, "type": "recon"}],
              "dependencies": []})
+        self.debug_log("Patch json", patch)
         self.env['patchJson'] = patch
         verJson = json.dumps({"currentVersion": useVer,
                               "softwareTitleId": patch_id})
@@ -277,7 +282,9 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         length = len(out.decode())
         httpcode = int(out.decode()[-3:])
 
+        self.debug_log("HTTP Code", httpcode)
         jsonload = out.decode()[0:length - 3]
+        self.debug_log("Returned data", jsonload)
         jsonoutput = json.loads(jsonload)
 
         return jsonoutput, httpcode
@@ -299,6 +306,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         enc_creds = self.get_enc_creds(username, password)
         authtoken = self.get_api_token(my_url, enc_creds)
         version = self.env["version"]
+        title = self.env.get("NAME")
 
         """Sends the new PatchVersion to a PatchServer"""
 
@@ -317,17 +325,17 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
             # Get errors if any
             if verhttpcode not in (200, 201):
                 raise ProcessorError("Error %s setting version for %s"
-                                     % (verhttpcode, id))
+                                     % (verhttpcode, title))
         elif httpcode == 400:
             errData = r["errors"][0]["code"]
             if errData == 'DUPLICATE_RECORD':
-                self.output("%s was already at this version" % id)
+                self.output("%s was already at this version" % title)
             else:
                 raise ProcessorError("Error %s sending Patch-Data for %s: %s"
-                                     % (httpcode, id, errData))
+                                     % (httpcode, title, errData))
         else:
             raise ProcessorError("Error %s sending Patch-Data for %s: %s"
-                                 % (httpcode, id, r))
+                                 % (httpcode, title, r))
 
     def cleanup(self):
         """Directory cleanup"""
@@ -371,6 +379,10 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         except ValueError:
             print('ERROR: Unable to read the application plist!')
             raise SystemExit(1)
+
+    def debug_log(self,message,sub_string):
+        if self.env.get("debug"):
+            print(("DEBUG - %s is %s") % (message, sub_string))
 
 if __name__ == "__main__":
     PROCESSOR = UpdateTitleEditor()
