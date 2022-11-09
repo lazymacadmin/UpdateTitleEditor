@@ -22,7 +22,7 @@ https://github.com/autopkg/lrz-recipes/blob/main/SharedProcessors/NotifyPatchSer
 ########  2020 LRZ - Christoph Ostermeier
 
 Set Title Editor URL
-## Add TITLE_URL to your autopkg prefs -
+## Add TITLE_URL to your autopkg prefs (do NOT include trailing slash in the the URL) -
     defaults write com.github.autopkg TITLE_URL https://your.title.url
 
 ## Add TITLE_USER and TITLE_PASS to your autopkg prefs -
@@ -68,9 +68,13 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
             "required": False,
             "description": "plist file"
         },
+        "debug": {
+            "required": False,
+            "description": "Flag to enable debugging - run with --key debug=true"
+        },
         "title_id": {
             "required": True,
-            "description": "Title Editor ID"
+            "description": "Title Editor Numeric ID"
         }
     }
 
@@ -179,7 +183,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         timestamp = datetime.utcfromtimestamp(
             os.path.getmtime(app_path)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-        # generate patchData-Hashtable
+        # generate patchData-
         patch = json.dumps(
             {"patchId": 0, "softwareTitleId": patch_id,
              "absoluteOrderId": 0, "version": useVer,
@@ -198,6 +202,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
                                "operator": "greater than or equal",
                                "value": min_os, "type": "recon"}],
              "dependencies": []})
+        self.debug_log("Patch json", patch)
         self.env['patchJson'] = patch
         verJson = json.dumps({"currentVersion": useVer,
                               "softwareTitleId": patch_id})
@@ -277,7 +282,9 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         length = len(out.decode())
         httpcode = int(out.decode()[-3:])
 
+        self.debug_log("HTTP Code", httpcode)
         jsonload = out.decode()[0:length - 3]
+        self.debug_log("Returned data", jsonload)
         jsonoutput = json.loads(jsonload)
 
         return jsonoutput, httpcode
@@ -372,6 +379,13 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         except ValueError:
             print('ERROR: Unable to read the application plist!')
             raise SystemExit(1)
+
+    def debug_log(self,message,sub_string):
+        ''' To use: add 
+        self.debug_log("Text to desplay after DEBUG - ",variabledata)
+        '''
+        if self.env.get("debug"):
+            print(("DEBUG - %s is %s") % (message, sub_string))
 
 if __name__ == "__main__":
     PROCESSOR = UpdateTitleEditor()
