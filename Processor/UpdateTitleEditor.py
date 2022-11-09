@@ -22,7 +22,7 @@ https://github.com/autopkg/lrz-recipes/blob/main/SharedProcessors/NotifyPatchSer
 ########  2020 LRZ - Christoph Ostermeier
 
 Set Title Editor URL
-## Add TITLE_URL to your autopkg prefs -
+## Add TITLE_URL to your autopkg prefs (do NOT include trailing slash in the the URL) -
     defaults write com.github.autopkg TITLE_URL https://your.title.url
 
 ## Add TITLE_USER and TITLE_PASS to your autopkg prefs -
@@ -70,11 +70,11 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         },
         "debug": {
             "required": False,
-            "description": "Flag to enable debugging"
+            "description": "Flag to enable debugging - run with --key debug=true"
         },
         "title_id": {
             "required": True,
-            "description": "Title Editor ID"
+            "description": "Title Editor Numeric ID"
         }
     }
 
