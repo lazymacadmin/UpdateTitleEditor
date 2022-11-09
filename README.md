@@ -7,8 +7,7 @@ defaults write com.github.autopkg TITLE_URL https://your.title.url
 defaults write com.github.autopkg TITLE_USER title-editor-user
 defaults write com.github.autopkg TITLE_PASS "title-editor-pass"
 ```
-- As written you will also need to know the ***numeric*** ID of each title from Title Editor and use it as an input in each recipe as shown circled in red:
-![Image of the Title Editor URL](TitleEditorId.png)
+- As written you will also need to know the ***numeric*** ID of each title from Title Editor and use it as an input in each recipe as shown circled in red:  ![Image of the Title Editor URL](TitleEditorId.png)
 - Make sure not to use a trailing slash on your Title Editor URL
 - There is a debug option to ensure you are getting the responses you expect. Run your recipe with `--key debug=true`
 
