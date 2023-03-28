@@ -4,7 +4,6 @@ Input:
     NAME: SampleName
     PATCH_NAME: DumbSampleApp
 MinimumVersion: '2.3'
-ParentRecipe: com.sample.jamf.thing
 Process:
 -   Processor: com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker
     Arguments: 
