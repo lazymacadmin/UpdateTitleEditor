@@ -3,7 +3,6 @@ Identifier: com.sample.title.thing
 Input:
     NAME: SampleName
 MinimumVersion: '2.3'
-ParentRecipe: com.sample.jamf.thing
 Process:
 -   Processor: com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker
     Arguments: 
