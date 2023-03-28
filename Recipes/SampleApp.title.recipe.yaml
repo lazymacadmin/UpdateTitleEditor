@@ -3,8 +3,12 @@ Identifier: com.sample.title.thing
 Input:
     NAME: SampleName
 MinimumVersion: '2.3'
-ParentRecipe: com.sample.pkg.thing
+ParentRecipe: com.sample.jamf.thing
 Process:
+-   Processor: com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker
+    Arguments: 
+        recipeoverride_identifier: com.sample.jamf.thing
+        cache_dir: '%CACHE_DIR%'
 -   Processor: really.cool.Processors/UpdateTitleEditor
     Arguments:
         title_id: '[numeric id from title editor]'
