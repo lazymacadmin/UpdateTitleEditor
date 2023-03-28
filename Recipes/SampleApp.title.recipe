@@ -13,11 +13,18 @@
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.3</string>
-	<key>ParentRecipe</key>
-	<string>com.sample.pkg.thing</string>
 	<key>Process</key>
 	<array>
 		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>cache_dir</key>
+				<string>%CACHE_DIR%</string>
+				<key>recipeoverride_identifier</key>
+				<string>com.sample.jamf.thing</string>
+			</dict>
 			<key>Processor</key>
 			<string>really.cool.Processors/UpdateTitleEditor</string>
 			<key>Arguments</key>
