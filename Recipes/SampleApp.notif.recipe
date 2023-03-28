@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Generic Policy Template</string>
+	<key>Identifier</key>
+	<string>com.sample.notif.thing</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>SampleName</string>
+    <key>PATCH_NAME</key>
+    <string>DumbSampleApp</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.3</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>cache_dir</key>
+				<string>%CACHE_DIR%</string>
+				<key>recipeoverride_identifier</key>
+				<string>com.sample.jamf.thing</string>
+			</dict>
+			<key>Processor</key>
+			<string>really.cool.Processors/JamfClearPatchNotifications</string>
+			<key>Arguments</key>
+			<dict>
+				<key>patch_name</key>
+				<string>%PATCH_NAME%</string>
+        <key>version</key>
+        <string>%version%</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
