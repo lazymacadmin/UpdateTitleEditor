@@ -1,0 +1,16 @@
+Comment: Generic Policy Template
+Identifier: com.software.notif.thing
+Input:
+    NAME: SampleName
+    PATCH_NAME: DumbSampleApp
+MinimumVersion: '2.3'
+ParentRecipe: com.sample.jamf.thing
+Process:
+-   Processor: com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker
+    Arguments: 
+        recipeoverride_identifier: com.sample.jamf.thing
+        cache_dir: '%CACHE_DIR%'
+-   Processor: really.cool.Processors/JamfClearPatchNotifications
+    Arguments:
+        patch_name: '%PATCH_NAME%'
+        version: '%version%'
