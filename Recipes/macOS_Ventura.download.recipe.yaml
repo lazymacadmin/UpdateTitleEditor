@@ -1,0 +1,20 @@
+Description: |+
+    Downloads the latest version of Ventura using mist-cli from 
+    https://github.com/ninxsoft/mist-cli
+    
+    Possible variables:
+    macOS: Name of OS to download (can be version number like 13.x, build like 22E, or name like macOS Ventura)
+    format: package, application, image, iso
+    type: installer or firmware
+Identifier: org.download.macosventy
+Input:
+    NAME: macOS Ventura
+    FORMAT: package
+    TYPE: installer
+MinimumVersion: 2.3.0
+Process:
+- Processor: really.cool.processors/MistDownloader
+  Arguments:
+    macOS: '%NAME%'
+    format: '%FORMAT%'
+    type: '%TYPE%'
