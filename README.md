@@ -1,8 +1,8 @@
 # Processors To Do Stuff Easier   
 I wrote/adapted these to make it easier to work with recipes in my Jamf instance. They work well for me but may take some work to fit into your workflows. I tried to require a minumum of extras to run these but didn't have the time to dedicate to removing all dependencies.  
-### [UpdateTitleEditor](https://github.com/onecheapgeek/UpdateTitleEditor/edit/main/README.md#updatetitleeditorpy)  
-### [JamfClearPatchNotifications](https://github.com/onecheapgeek/UpdateTitleEditor/edit/main/README.md#jamfclearpatchnotificationspy)  
-### [MistDownloader](https://github.com/onecheapgeek/UpdateTitleEditor/edit/main/README.md#mistdownloaderpy)
+### [UpdateTitleEditor](https://github.com/onecheapgeek/UpdateTitleEditor#updatetitleeditorpy)  
+### [JamfClearPatchNotifications](https://github.com/onecheapgeek/UpdateTitleEditor#jamfclearpatchnotificationspy)  
+### [MistDownloader](https://github.com/onecheapgeek/UpdateTitleEditor#mistdownloaderpy)
 
 
 
