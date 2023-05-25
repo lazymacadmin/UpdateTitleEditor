@@ -25,3 +25,11 @@ To use you will need your autopkg install to hace access to the requests module:
 Arguments needed in your autopkg recipes:
 - patch_name: to match the patch title in Jamf Pro
 - version: should be set in your autopkg recipe but can be over-ridden manually
+
+
+# MistDownloader.py
+Downloads macOS installers using [mist](https://github.com/ninxsoft/mist-cli) - must be installed first.
+Arguments needed for recipes:
+- macOS: name of the macOS you wish to download (macOS Ventura, 13.x, 22E for formats)
+- format: package, application, image, iso 
+- type: installer, firmware
