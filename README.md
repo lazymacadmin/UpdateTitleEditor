@@ -1,4 +1,12 @@
-# UpdateTitleEditor.py
+# Processors To Do Stuff Easier   
+I wrote/adapted these to make it easier to work with recipes in my Jamf instance. They work well for me but may take some work to fit into your workflows. I tried to require a minumum of extras to run these but didn't have the time to dedicate to removing all dependencies.  
+### [UpdateTitleEditor](https://github.com/onecheapgeek/UpdateTitleEditor/edit/main/README.md#updatetitleeditorpy)  
+### [JamfClearPatchNotifications](https://github.com/onecheapgeek/UpdateTitleEditor/edit/main/README.md#jamfclearpatchnotificationspy)  
+### [MistDownloader](https://github.com/onecheapgeek/UpdateTitleEditor/edit/main/README.md#mistdownloaderpy)
+
+
+
+## UpdateTitleEditor.py
 Autopkg processor to update Jamf's Title Editor
 
 To use, you will need to add 3 entries to your autopkg config:
@@ -15,7 +23,7 @@ defaults write com.github.autopkg TITLE_PASS "title-editor-pass"
 Feel free to run with this so I'm not stuck answering questions and/or trying to improve it any further.
 
 
-# JamfClearPatchNotifications.py
+## JamfClearPatchNotifications.py
 Autopkg processor to clear notifications for new patch versions in Jamf Pro
 
 To use you will need your autopkg install to hace access to the requests module:
@@ -27,7 +35,7 @@ Arguments needed in your autopkg recipes:
 - version: should be set in your autopkg recipe but can be over-ridden manually
 
 
-# MistDownloader.py
+## MistDownloader.py
 Downloads macOS installers using [mist](https://github.com/ninxsoft/mist-cli) - must be installed first.
 Arguments needed for recipes:
 - macOS: name of the macOS you wish to download (macOS Ventura, 13.x, 22E for formats)
