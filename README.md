@@ -43,4 +43,4 @@ Arguments needed for recipes:
 - format: package, application, image, iso 
 - type: installer, firmware
 
-Because of how [mist](https://github.com/ninxsoft/mist-cli) runs, the autopkg needs passwordless sudo access for at least the mist cli tool
+Because of how [mist](https://github.com/ninxsoft/mist-cli) runs, the autopkg user needs passwordless sudo access for at least the mist cli tool
