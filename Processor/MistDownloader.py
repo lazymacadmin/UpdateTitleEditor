@@ -53,6 +53,7 @@ class MistDownloader(Processor):
                     self.env[ "macOS" ],\
                     "-o", \
                     "json", \
+                    "--compatible", \
                     "-q" ]
         
         version_data = subprocess.check_output( version_cmd )
@@ -66,6 +67,7 @@ class MistDownloader(Processor):
                               "/usr/local/bin/mist", \
                               "download", \
                               self.env[ "type" ], \
+                              "--compatible", \
                               self.env[ "macOS" ], \
                               self.env[ "format" ], \
                               "--output-directory", \
