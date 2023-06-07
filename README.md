@@ -42,3 +42,5 @@ Arguments needed for recipes:
 - macOS: name of the macOS you wish to download (macOS Ventura, 13.x, 22E for formats)
 - format: package, application, image, iso 
 - type: installer, firmware
+
+Because of how [mist](https://github.com/ninxsoft/mist-cli) runs, the autopkg needs passwordless sudo access for at least the mist cli tool
