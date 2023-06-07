@@ -29,6 +29,10 @@ class MistDownloader(Processor):
         "macOS": {
             "required": True,
             "description": "Name of the macOS version to install. "
+        },
+        "compat_only": {
+            "required": False,
+            "description": "Flag to only download compatible versions"
         }
     }
     output_variables = {
@@ -53,9 +57,10 @@ class MistDownloader(Processor):
                     self.env[ "macOS" ],\
                     "-o", \
                     "json", \
-                    "--compatible", \
                     "-q" ]
-        
+        if self.env.get("compat_only"):
+            version_cmd.append('--compatible')
+            
         version_data = subprocess.check_output( version_cmd )
         #print(version_data)
         data = json.loads(version_data)
@@ -67,12 +72,13 @@ class MistDownloader(Processor):
                               "/usr/local/bin/mist", \
                               "download", \
                               self.env[ "type" ], \
-                              "--compatible", \
                               self.env[ "macOS" ], \
                               self.env[ "format" ], \
                               "--output-directory", \
                               output_dir, \
                               "-q" ]
+        if self.env.get("compat_only"):
+            command_line_list.append('--compatible')
 
         #print(command_line_list)
 
