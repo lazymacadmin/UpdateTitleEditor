@@ -1,5 +1,13 @@
 #!/usr/local/autopkg/python
 #
+# This requires https://github.com/ninxsoft/mist-cli and
+# sudo access to the mist binary in order to create macOS 
+# installers
+# e.g. user ALL = NOPASSWD: /usr/local/bin/mist
+# 
+# Make sure the risk associated with that is well understood
+# and worth it in your environment
+# 
 # Processor to download the latest macOS installer
 # in a given format
 
@@ -79,8 +87,6 @@ class MistDownloader(Processor):
                               "-q" ]
         if self.env.get("compat_only"):
             command_line_list.append('--compatible')
-
-        #print(command_line_list)
 
         # print command_line_list
         #subprocess.call( command_line_list, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL )
