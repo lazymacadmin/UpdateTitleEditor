@@ -1,0 +1,36 @@
+Comment: Generic Policy Template
+Identifier: com.sample.patch.thing
+Input:
+    UPDATE_PREDICATE: pkg_uploaded == False
+    PATCH_ENABLED: 'true'
+    PATCH_NAME: '%NAME%'
+    PATCH_SOFTWARE_TITLE: '%NAME%'
+    PATCH_TEMPLATE: UCBAPatchTemplate.xml
+    PATCH_POLICY_NAME: 'Update %NAME%'
+    PATCH_GROUP: All Managed Clients
+    POLICY_NAME: 'Install %NAME%'
+    GROUP_NAME: Group
+    CATEGORY: Applications
+    NAME: SampleApp
+MinimumVersion: '2.3'
+Process:
+-   Processor: com.github.grahampugh.recipes.preprocessors/LastRecipeRunChecker
+    Arguments: 
+        recipeoverride_identifier: com.sample.jamf.thing
+        cache_dir: '%CACHE_DIR%'
+-   Arguments:
+        predicate: '%UPDATE_PREDICATE%'
+    Processor: StopProcessingIf
+-   Arguments:
+        replace_patch: True
+        grace_period: '300'
+        PATCH_GROUP: '%PATCH_GROUP%'
+        patch_icon_policy_name: '%POLICY_NAME%'
+        patch_name: '%PATCH_POLICY_NAME%'
+        patch_softwaretitle: '%PATCH_SOFTWARE_TITLE%'
+        patch_template: '%PATCH_TEMPLATE%'
+    Processor: com.github.grahampugh.jamf-upload.processors/JamfPatchUploader
+-   Processor: really.cool.Processors/JamfClearPatchNotifications
+    Arguments:
+        patch_name: '%PATCH_NAME%'
+        version: '%version%'
