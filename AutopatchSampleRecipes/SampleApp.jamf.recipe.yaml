@@ -1,0 +1,24 @@
+Comment: Generic Policy Template
+Identifier: com.sample.jamf.thing
+Input:
+    NAME: SampleName
+MinimumVersion: '2.3'
+ParentRecipe: com.sample.pkg.thing
+Process:
+-   Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+-   Arguments:
+        versions_to_keep: 10
+    Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageCleaner
+-   Arguments:
+    Processor: really.cool.Processors/UpdateTitleEditor
+        title_id: 1
+-   Arguments:
+        predicate: '%UPDATE_PREDICATE%'
+    Processor: StopProcessingIf
+-   Arguments:
+        icon: '%SELF_SERVICE_ICON%'
+        policy_name: '%POLICY_NAME%'
+        policy_template: '%POLICY_TEMPLATE%'
+        replace_policy: 'True'
+    Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+-   Processor: edu.ucblueash.postprocessors/LastRecipeRunResult
