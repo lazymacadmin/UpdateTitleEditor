@@ -21,11 +21,11 @@ class JamfClearPatchNotifications(Processor):
         },
         "client_id": {
             "required": False,
-            "description": "The patch version to clear notifications for.",
+            "description": "A Jamf Pro client id for api-only auth",
         },
         "client_secret": {
             "required": False,
-            "description": "The patch version to clear notifications for.",
+            "description": "A Jamf Pro client secret for api-only auth",
         },
     }
     output_variables = {}
@@ -43,7 +43,7 @@ class JamfClearPatchNotifications(Processor):
             auth_url = jamf_url + "/api/v1/auth/token"
             headers = {"client_id": self.env.get("client_id"), \
                        "grant_type": "client_credentials", \
-                        "client_secret": self.env.get("client_secret")"}
+                        "client_secret": self.env.get("client_secret")}
             tokenreq = requests.post(auth_url,data=headers)
             token = tokenreq.json()["access_token"]
         elif self.env.get("API_USERNAME") and self.env.get("API_PASSWORD"):
