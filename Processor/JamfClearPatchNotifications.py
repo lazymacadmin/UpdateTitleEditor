@@ -19,6 +19,14 @@ class JamfClearPatchNotifications(Processor):
             "required": True,
             "description": "The patch version to clear notifications for.",
         },
+        "client_id": {
+            "required": False,
+            "description": "The patch version to clear notifications for.",
+        },
+        "client_secret": {
+            "required": False,
+            "description": "The patch version to clear notifications for.",
+        },
     }
     output_variables = {}
 
@@ -29,16 +37,27 @@ class JamfClearPatchNotifications(Processor):
 
         # Build the URL for the Jamf Pro API
         jamf_url = self.env.get("JSS_URL")
-        auth_url = jamf_url + "/api/v1/auth/token"
         not_url = jamf_url + "/api/v1/notifications"
 
-        username = self.env.get("API_USERNAME")
-        password = self.env.get("API_PASSWORD")
+        if self.env.get("client_id") and self.env.get("client_secret"):
+            auth_url = jamf_url + "/api/v1/auth/token"
+            headers = {"client_id": self.env.get("client_id"), \
+                       "grant_type": "client_credentials", \
+                        "client_secret": self.env.get("client_secret")"}
+            tokenreq = requests.post(auth_url,data=headers)
+            token = tokenreq.json()["access_token"]
+        elif self.env.get("API_USERNAME") and self.env.get("API_PASSWORD"):
+            auth_url = jamf_url + "/api/v1/auth/token"
+            username = self.env.get("API_USERNAME")
+            password = self.env.get("API_PASSWORD")
+            headers = {"Content-Type": "application/json"}
+            tokenreq = requests.post(auth_url, auth=(username,password), headers=headers)
+            token = tokenreq.json()["token"]
+        else:
+            self.output("Jamf API Credentials are not in prefs")
+            raise ProcessorError("No Authentication credentials supplied")
 
-        # Make a PUT request to the Jamf Pro API to clear notifications for the patch policy
-        headers = {"Content-Type": "application/json"}
-        tokenreq = requests.post(auth_url, auth=(username,password), headers=headers)
-        token = tokenreq.json()["token"]
+        notification_id="0"
 
         # Check if the request was successful
         if tokenreq.status_code != 200:
@@ -54,17 +73,18 @@ class JamfClearPatchNotifications(Processor):
                 self.output(notification_id)
                 break
         
-        dheaders = {"Authorization": "Bearer {}".format(token)}
-        dismiss_url = not_url + "/PATCH_UPDATE/" +notification_id
-        self.output(dismiss_url)
-        dismiss_response = requests.delete(
-            url=dismiss_url,
-            headers=dheaders)
+        if notification_id != "0":
+            dheaders = {"Authorization": "Bearer {}".format(token)}
+            dismiss_url = not_url + "/PATCH_UPDATE/" +notification_id
+            self.output(dismiss_url)
+            dismiss_response = requests.delete(
+                url=dismiss_url,
+                headers=dheaders)
 
-        if dismiss_response.status_code not in (200, 201, 204):
-            raise ProcessorError(f"Error dismissing notification: {dismiss_response.status_code}")
+            if dismiss_response.status_code not in (200, 201, 204):
+                raise ProcessorError(f"Error dismissing notification: {dismiss_response.status_code}")
 
-        self.output(f"Successfully cleared notification for {patch_name} version {version}")
+            self.output(f"Successfully cleared notification for {patch_name} version {version}")
 
 if __name__ == "__main__":
     processor = JamfClearPatchNotifications()
