@@ -1,0 +1,8 @@
+Identifier: edu.ucblueash.jamf.sleep
+Input:
+    NAME: Sleep
+MinimumVersion: 2.3.0
+Process:
+-   Processor: com.github.grahampugh.recipes.commonprocessors/Sleep
+    Arguments:
+        sleep_time: '60'
