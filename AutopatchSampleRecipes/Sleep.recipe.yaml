@@ -1,4 +1,4 @@
-Identifier: edu.ucblueash.jamf.sleep
+Identifier: wait.sleep
 Input:
     NAME: Sleep
 MinimumVersion: 2.3.0
