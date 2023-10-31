@@ -27,7 +27,7 @@ Feel free to run with this so I'm not stuck answering questions and/or trying to
 ## JamfClearPatchNotifications.py
 Autopkg processor to clear notifications for new patch versions in Jamf Pro
 
-To use you will need your autopkg install to hace access to the requests module:
+To use you will need your autopkg install to have access to the requests module:
 ```
 /Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/pip3 install requests
 ```
