@@ -49,10 +49,11 @@ class JamfClearPatchNotifications(Processor):
 
         data = json.loads(get_not_response.text)
         for item in data:
-            if item["params"]["softwareTitleName"] == patch_name and item["params"]["latestVersion"] == version:
-                notification_id = item["id"]
-                self.output(notification_id)
-                break
+            if item["type"] == "PATCH_UPDATE":
+                if item["params"]["softwareTitleName"] == patch_name and item["params"]["latestVersion"] == version:
+                    notification_id = item["id"]
+                    self.output(notification_id)
+                    break
         
         dheaders = {"Authorization": "Bearer {}".format(token)}
         dismiss_url = not_url + "/PATCH_UPDATE/" +notification_id
