@@ -1,0 +1,1 @@
+Sample recipes for JamfPatchTitleVersioner
