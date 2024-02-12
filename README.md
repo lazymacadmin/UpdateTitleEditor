@@ -1,10 +1,10 @@
 # Processors To Do Stuff Easier   
 I wrote/adapted these to make it easier to work with recipes in my Jamf instance. They work well for me but may take some work to fit into your workflows. I tried to require a minumum of extras to run these but didn't have the time to dedicate to removing all dependencies.  
   
-[UpdateTitleEditor](https://github.com/onecheapgeek/UpdateTitleEditor#updatetitleeditorpy)  
-[JamfClearPatchNotifications](https://github.com/onecheapgeek/UpdateTitleEditor#jamfclearpatchnotificationspy)  
-[MistDownloader](https://github.com/onecheapgeek/UpdateTitleEditor#mistdownloaderpy)
-
+[UpdateTitleEditor](https://github.com/lazymacadmin/UpdateTitleEditor#updatetitleeditorpy)  
+[JamfClearPatchNotifications](https://github.com/lazymacadmin/UpdateTitleEditor#jamfclearpatchnotificationspy)  
+[MistDownloader](https://github.com/lazymacadmin/UpdateTitleEditor#mistdownloaderpy)  
+[JamfPatchTitleVersioner](https://github.com/lazymacadmin/UpdateTitleEditor#jamfpatchtitleversionerpy) 
 
 
 ## UpdateTitleEditor.py
@@ -47,3 +47,14 @@ Arguments needed for recipes:
 Because of how [mist](https://github.com/ninxsoft/mist-cli) runs, the autopkg user needs passwordless sudo access for at least the mist cli tool, i.e.:
 
 `autopkg_user ALL=(root) NOPASSWD: /usr/local/bin/mist`
+
+## JamfPatchTitleVersioner.py
+Autopkg provessor that pulls the latest version for a given patch title. Arguments taken by this processoir:
+- JSS_URL (Required): the URL of your Jamf server
+- patch_softwaretitle (Required): The title of your patch title in Jamf
+- CLIENT_ID: A Jamf API client_id
+- CLIENT_SECRET: An associated Jamf API client_secret
+- API_USERNAME: A User account with appropriate patch permissions in Jamf
+- API_PASSWORD: The password for the above account
+
+Either API_USERNAME and API_PASSWORD or CLIENT_ID and CLIENT_SECRET are required, but CLIENT_ID and CLIENT_SECRET are preferred.
