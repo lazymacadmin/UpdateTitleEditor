@@ -49,7 +49,7 @@ Because of how [mist](https://github.com/ninxsoft/mist-cli) runs, the autopkg us
 `autopkg_user ALL=(root) NOPASSWD: /usr/local/bin/mist`
 
 ## JamfPatchTitleVersioner.py
-Autopkg provessor that pulls the latest version for a given patch title. Arguments taken by this processoir:
+Autopkg processor that pulls the latest version for a given patch title. Arguments taken by this processoir:
 - JSS_URL (Required): the URL of your Jamf server
 - patch_softwaretitle (Required): The title of your patch title in Jamf
 - CLIENT_ID: A Jamf API client_id
@@ -57,4 +57,4 @@ Autopkg provessor that pulls the latest version for a given patch title. Argumen
 - API_USERNAME: A User account with appropriate patch permissions in Jamf
 - API_PASSWORD: The password for the above account
 
-Either API_USERNAME and API_PASSWORD or CLIENT_ID and CLIENT_SECRET are required, but CLIENT_ID and CLIENT_SECRET are preferred.
+Either a combo of  **API_USERNAME and API_PASSWORD** or **CLIENT_ID and CLIENT_SECRET** are required, but CLIENT_ID and CLIENT_SECRET are take precedence.
