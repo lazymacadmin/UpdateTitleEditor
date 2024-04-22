@@ -71,7 +71,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         "debug": {
             "required": False,
             "description": "Flag to enable debugging - run with --key debug=true"
-        },
+        },        
         "title_id": {
             "required": True,
             "description": "Title Editor Numeric ID"
@@ -87,6 +87,9 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
             },
         "verJson": {
             "description": "actual version string.",
+            },
+        "title_updated": {
+            "description": "true if title def was updated",
             }
     }
 
@@ -94,6 +97,8 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
     source_path = None
     # Remove these directories after processing
     cleanupDirs = []
+
+    title_updated = False
 
     def unpack(self):
         """Unpacks the Package file using other Processors"""
@@ -183,7 +188,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         timestamp = datetime.utcfromtimestamp(
             os.path.getmtime(app_path)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-        # generate patchData-
+        # generate patchData
         patch = json.dumps(
             {"patchId": 0, "softwareTitleId": patch_id,
              "absoluteOrderId": 0, "version": useVer,
@@ -202,7 +207,6 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
                                "operator": "greater than or equal",
                                "value": min_os, "type": "recon"}],
              "dependencies": []})
-        self.debug_log("Patch json", patch)
         self.env['patchJson'] = patch
         verJson = json.dumps({"currentVersion": useVer,
                               "softwareTitleId": patch_id})
@@ -282,9 +286,7 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         length = len(out.decode())
         httpcode = int(out.decode()[-3:])
 
-        self.debug_log("HTTP Code", httpcode)
         jsonload = out.decode()[0:length - 3]
-        self.debug_log("Returned data", jsonload)
         jsonoutput = json.loads(jsonload)
 
         return jsonoutput, httpcode
@@ -326,6 +328,8 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
             if verhttpcode not in (200, 201):
                 raise ProcessorError("Error %s setting version for %s"
                                      % (verhttpcode, title))
+            else:
+                self.title_updated = True
         elif httpcode == 400:
             errData = r["errors"][0]["code"]
             if errData == 'DUPLICATE_RECORD':
@@ -336,6 +340,9 @@ class UpdateTitleEditor(PkgPayloadUnpacker, FlatPkgUnpacker):
         else:
             raise ProcessorError("Error %s sending Patch-Data for %s: %s"
                                  % (httpcode, title, r))
+        
+        self.env["title_updated"] = self.title_updated
+
 
     def cleanup(self):
         """Directory cleanup"""
