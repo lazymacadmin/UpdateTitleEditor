@@ -4,7 +4,8 @@ I wrote/adapted these to make it easier to work with recipes in my Jamf instance
 [UpdateTitleEditor](https://github.com/lazymacadmin/UpdateTitleEditor#updatetitleeditorpy)  
 [JamfClearPatchNotifications](https://github.com/lazymacadmin/UpdateTitleEditor#jamfclearpatchnotificationspy)  
 [MistDownloader](https://github.com/lazymacadmin/UpdateTitleEditor#mistdownloaderpy)  
-[JamfPatchTitleVersioner](https://github.com/lazymacadmin/UpdateTitleEditor#jamfpatchtitleversionerpy) 
+[JamfPatchTitleVersioner](https://github.com/lazymacadmin/UpdateTitleEditor#jamfpatchtitleversionerpy)  
+[SleepIf](https://github.com/lazymacadmin/UpdateTitleEditor#sleepifpy)  
 
 
 ## UpdateTitleEditor.py
@@ -58,3 +59,9 @@ Autopkg processor that pulls the latest version for a given patch title. Argumen
 - API_PASSWORD: The password for the above account
 
 Either a combo of  **API_USERNAME and API_PASSWORD** or **CLIENT_ID and CLIENT_SECRET** are required, but CLIENT_ID and CLIENT_SECRET are take precedence.
+
+
+## SleepIf.py
+Shamefully stolen from [StopProcessingIf](https://github.com/autopkg/autopkg/blob/master/Code/autopkglib/StopProcessingIf.py) and [Sleep](https://github.com/autopkg/grahampugh-recipes/blob/main/CommonProcessors/Sleep.py) and modified, SleepIf takes the following arguments:
+- predicate: NSPredicate-style comparison against an environment key
+- sleep_time: The time, in seconds, to sleep
