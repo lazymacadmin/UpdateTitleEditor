@@ -1,3 +1,10 @@
+> ⛔️ ATTENTION <br/>
+> I am no longer maintaining this project because I no longer use/have access to the resources to maintain it.<br/>
+> I have [asked](https://lazymacadmin.github.io/2024/02/14/so-long-farewell-goodbye.html#:~:text=I’m%20also%20looking%20to%20leave,wants%20to%20take%20it%20over.) [before](https://lazymacadmin.github.io/2024/10/08/updated-autopkg-teams-workflows.html#:~:text=I’m%20still%20looking%20to%20leave,wants%20to%20take%20it%20over.) for someone to maintain this project, but no one has stepped forward. As such, this project, while functional as of January 28, 2025, should be considered abandoned in its current form.
+>
+
+----------------------
+
 # Processors To Do Stuff Easier   
 I wrote/adapted these to make it easier to work with recipes in my Jamf instance. They work well for me but may take some work to fit into your workflows. I tried to require a minumum of extras to run these but didn't have the time to dedicate to removing all dependencies.  
   
@@ -62,6 +69,6 @@ Either a combo of  **API_USERNAME and API_PASSWORD** or **CLIENT_ID and CLIENT_S
 
 
 ## SleepIf.py
-Shamefully stolen from [StopProcessingIf](https://github.com/autopkg/autopkg/blob/master/Code/autopkglib/StopProcessingIf.py) and [Sleep](https://github.com/autopkg/grahampugh-recipes/blob/main/CommonProcessors/Sleep.py) and modified, SleepIf takes the following arguments:
+Shamefully ~~stolen from~~ inspired by [StopProcessingIf](https://github.com/autopkg/autopkg/blob/master/Code/autopkglib/StopProcessingIf.py) and [Sleep](https://github.com/autopkg/grahampugh-recipes/blob/main/CommonProcessors/Sleep.py) and modified, SleepIf takes the following arguments:
 - predicate: NSPredicate-style comparison against an environment key
 - sleep_time: The time, in seconds, to sleep
