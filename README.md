@@ -2,6 +2,9 @@
 > I am no longer maintaining this project because I no longer use/have access to the resources to maintain it.<br/>
 > I have [asked](https://lazymacadmin.github.io/2024/02/14/so-long-farewell-goodbye.html#:~:text=I’m%20also%20looking%20to%20leave,wants%20to%20take%20it%20over.) [before](https://lazymacadmin.github.io/2024/10/08/updated-autopkg-teams-workflows.html#:~:text=I’m%20still%20looking%20to%20leave,wants%20to%20take%20it%20over.) for someone to maintain this project, but no one has stepped forward. As such, this project, while functional as of January 28, 2025, should be considered abandoned in its current form.
 >
+> The University of Utah - Marriott Library - Apple Infrastructure team has taken on a [new set of tools and workflows to manage Title Editor integration with autopkg](https://github.com/univ-of-utah-marriott-library-apple/Title-Editor---API-Automation-Associated-Scripts/tree/main) runs. If you are unable to potentially maintain this processor and need Title Editor functionality with autopkg, I recommend looking at their implementation and workflows.
+> 
+
 
 ----------------------
 
